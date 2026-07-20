@@ -1,0 +1,24 @@
+services:
+
+  app:
+
+    build: .
+
+    container_name: springboot-demo
+
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/employee_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+
+    networks:
+      - demo-network
+
+networks:
+  demo-network:
+    external: true
