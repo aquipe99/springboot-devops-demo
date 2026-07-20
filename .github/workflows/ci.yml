@@ -17,6 +17,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+
     steps:
 
       - name: Checkout source code
@@ -29,8 +32,10 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Build project
-        run: mvn clean compile
+      - name: Build, Test and Verify
+        run: mvn clean verify
 
-      - name: Run Unit Tests
-        run: mvn test
+      - name: SonarCloud Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn sonar:sonar -Dsonar.token=${SONAR_TOKEN}

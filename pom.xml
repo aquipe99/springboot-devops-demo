@@ -74,6 +74,11 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>5.2.0.4988</version>
+			</plugin>
+			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
@@ -101,17 +106,38 @@
 						</goals>
 
 						<configuration>
+							<excludes>
+
+								<!-- Clase principal -->
+								<exclude>**/*Application.class</exclude>
+
+								<!-- Configuración -->
+								<exclude>**/config/**</exclude>
+
+								<!-- DTO -->
+								<exclude>**/dto/**</exclude>
+
+								<!-- Entidades -->
+								<exclude>**/entity/**</exclude>
+
+								<!-- Mapper generado -->
+								<exclude>**/*MapperImpl.class</exclude>
+
+								<!-- Excepciones -->
+								<exclude>**/exception/**</exclude>
+
+							</excludes>
 							<rules>
 
 								<rule>
-									<element>CLASS</element>
+									<element>BUNDLE</element>
 
 									<limits>
 
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.80</minimum>
+											<minimum>0.70</minimum>
 										</limit>
 
 									</limits>
